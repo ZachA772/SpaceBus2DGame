@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using GameAnalyticsSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
             //Set consistent framerate
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 0;
+
+            GameAnalytics.Initialize();
         }
         else
         {
