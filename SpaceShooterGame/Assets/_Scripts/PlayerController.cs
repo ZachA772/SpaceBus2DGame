@@ -1,5 +1,6 @@
-using UnityEngine;
+using GameAnalyticsSDK;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -141,6 +142,7 @@ public class PlayerController : MonoBehaviour
         {
             ShootBulletAtAngle(0f); //Single shot
         }
+        GameAnalytics.NewDesignEvent("player:shoot");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -188,6 +190,8 @@ public class PlayerController : MonoBehaviour
 
         if (uiManager != null)
             uiManager.OnPlayerDeath(); //Notify UI
+
+        GameAnalytics.NewDesignEvent("player:died");
     }
 
     public void SetMovementReversed(bool reversed)

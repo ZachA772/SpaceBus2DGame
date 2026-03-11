@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
         score += 20;//Add points for kill
         UpdateScoreUI();//Update UI
 
+        GameAnalytics.NewDesignEvent("enemy:killed");
+
         Debug.Log("Enemies Destroyed: " + enemiesDestroyed +
              " | Current Scene: " + SceneManager.GetActiveScene().name);//Debug info
     }

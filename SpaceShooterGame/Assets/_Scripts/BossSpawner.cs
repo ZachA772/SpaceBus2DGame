@@ -1,3 +1,4 @@
+using GameAnalyticsSDK;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -122,6 +123,8 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 1 spawned!");
+
+        GameAnalytics.NewDesignEvent("boss:spawned:level1");
     }
 
     private void SpawnBoss2()
@@ -176,6 +179,7 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 2 spawned!");
+        GameAnalytics.NewDesignEvent("boss:spawned:level2");
     }
 
     private void SpawnBoss3()
@@ -230,6 +234,7 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 3 spawned!");
+        GameAnalytics.NewDesignEvent("boss:spawned:level3");
     }
 
     private IEnumerator LoadNextSceneAfterDelay(string sceneName, float delay)

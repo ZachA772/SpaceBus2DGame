@@ -1,3 +1,4 @@
+using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,5 +101,7 @@ public class BossHealth : MonoBehaviour
 
         //Destroy the boss object after delay
         Destroy(gameObject, destroyDelay);
+
+        GameAnalytics.NewDesignEvent("boss:killed");
     }
 }
