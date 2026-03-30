@@ -42,11 +42,11 @@ Unity 2022.3.60f1
 ## Folder Explanations
 1. APK_Csharp - Contains the APK file and all C# scripts
 2. SpaceShooterGame - Full Unity Project
-3. Trailer_Demo - Contains video demo of game
+3. Trailer_Demo_Video - Contains video demo of game 
 4. FinalExecution - ZIP folder containing executable of game
 5. HTML5Version - Files for the HTML5 version of the game
 6. Documentation - Contains design document and report for implementation of game analytics and google play store deployment 
-
+7. Analytics_Discussion_Video - Contains discussion video of Game Analytics and Google Play Achievments/Leaderboard implementation
 ## Author
 
 Developed by: Zach Ahearn  
