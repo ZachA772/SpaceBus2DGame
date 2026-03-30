@@ -1,5 +1,6 @@
-using UnityEngine;
+using GameAnalyticsSDK;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -92,12 +93,6 @@ public class PlayerController : MonoBehaviour
         //Combine both inputs with multiplier
         _horizontalInput = Mathf.Clamp(keyboardHorizontalInput + joystickHorizontalInput, -1f, 1f) * currentReverseMultiplier;
         _verticalInput = Mathf.Clamp(keyboardVerticalInput + joystickVerticalInput, -1f, 1f) * currentReverseMultiplier;
-
-        // Shoot left mouse button is pressed
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
     }
 
     private void FixedUpdate()
@@ -147,6 +142,7 @@ public class PlayerController : MonoBehaviour
         {
             ShootBulletAtAngle(0f); //Single shot
         }
+        GameAnalytics.NewDesignEvent("player:shoot");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -194,6 +190,10 @@ public class PlayerController : MonoBehaviour
 
         if (uiManager != null)
             uiManager.OnPlayerDeath(); //Notify UI
+
+        GooglePlayManager.Instance?.RecordDeath();
+        GameAnalytics.NewDesignEvent("player:died");
+        GameManager.Instance?.GameOver();
     }
 
     public void SetMovementReversed(bool reversed)

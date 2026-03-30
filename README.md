@@ -40,11 +40,12 @@ Mobile:
 Unity 2022.3.60f1
 
 ## Folder Explanations
-1. APK_Csharp - COntains the APK file and all C# scripts
+1. APK_Csharp - Contains the APK file and all C# scripts
 2. SpaceShooterGame - Full Unity Project
 3. Trailer_Demo - Contains video demo of game
 4. FinalExecution - ZIP folder containing executable of game
 5. HTML5Version - Files for the HTML5 version of the game
+6. Documentation - Contains design document and report for implementation of game analytics and google play store deployment 
 
 ## Author
 

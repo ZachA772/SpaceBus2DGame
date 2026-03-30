@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private TMP_Text scoreText;//Reference to the on-screen score text
 
+    private bool isGameOver = false; //Bool for if player died
+
     private void Awake()
     {
         if (Instance == null)//If no instance exists, make this the singleton
@@ -37,8 +39,7 @@ public class GameManager : MonoBehaviour
         //Reset counters when starting Level1
         if (scene.name == "Level1")
         {
-            enemiesDestroyed = 0;
-            score = 0;
+            ResetGame();
         }
 
         //Find the score text object in the scene
@@ -54,20 +55,43 @@ public class GameManager : MonoBehaviour
 
     private void AddTimeScore()
     {
+        if (isGameOver) return;
+
         score += 10;//Increment score
         UpdateScoreUI();//Update UI
     }
 
     public void AddKill()
     {
+        if (isGameOver) return;
+
         enemiesDestroyed++;//Increment enemies destroyed
         score += 20;//Add points for kill
         UpdateScoreUI();//Update UI
 
+        GooglePlayManager.Instance?.FirstKill();
         GameAnalytics.NewDesignEvent("enemy:killed");
 
+        if (enemiesDestroyed == 30)
+        {
+            GooglePlayManager.Instance?.ThirtyKills();
+        }
+
         Debug.Log("Enemies Destroyed: " + enemiesDestroyed +
-             " | Current Scene: " + SceneManager.GetActiveScene().name);//Debug info
+             " | Current Scene: " + SceneManager.GetActiveScene().name);
+    }
+
+    public void GameOver()
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+
+        CancelInvoke(nameof(AddTimeScore)); // Stop time score ticking
+
+        Debug.Log("Game Over. Final Score: " + score);
+
+        GooglePlayManager.Instance?.ReportScore(score);
     }
 
     private void UpdateScoreUI()
@@ -75,4 +99,19 @@ public class GameManager : MonoBehaviour
         if (scoreText != null)
             scoreText.text = "Score: " + score;//Display current score
     }
+
+    private void ResetGame()
+    {
+        isGameOver = false;
+        enemiesDestroyed = 0;
+        score = 0;
+
+        CancelInvoke(nameof(AddTimeScore)); // Stop invoking in case its still invoking
+        InvokeRepeating(nameof(AddTimeScore), 1f, 1f); // Restart score ticking
+
+        UpdateScoreUI();
+
+        Debug.Log("Game Reset");
+    }
+
 }

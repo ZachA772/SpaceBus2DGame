@@ -191,7 +191,9 @@ public class PlayerController : MonoBehaviour
         if (uiManager != null)
             uiManager.OnPlayerDeath(); //Notify UI
 
+        GooglePlayManager.Instance?.RecordDeath();
         GameAnalytics.NewDesignEvent("player:died");
+        GameManager.Instance?.GameOver();
     }
 
     public void SetMovementReversed(bool reversed)

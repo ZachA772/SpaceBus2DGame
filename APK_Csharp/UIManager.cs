@@ -71,4 +71,27 @@ public class UIManager : MonoBehaviour
         if (pausePanel != null) pausePanel.SetActive(false); //Hide pause panel
         Time.timeScale = 1f; //Resume game time
     }
+    public void OpenAchievements()
+    {
+        if (GooglePlayManager.Instance != null)
+        {
+            GooglePlayManager.Instance.ShowAchievementsUI();
+        }
+        else
+        {
+            Debug.LogWarning("GooglePlayManager not found!");
+        }
+    }
+
+    public void OpenLeaderboard()
+    {
+        if (GooglePlayManager.Instance != null)
+        {
+            GooglePlayManager.Instance.ShowLeaderboardUI();
+        }
+        else
+        {
+            Debug.LogWarning("GooglePlayManager not found!");
+        }
+    }
 }

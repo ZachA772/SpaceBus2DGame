@@ -1,3 +1,4 @@
+using GameAnalyticsSDK;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -114,6 +115,7 @@ public class BossSpawner : MonoBehaviour
 
                 //Load next level after delay
                 StartCoroutine(LoadNextSceneAfterDelay("Level2", 3f));
+                GameAnalytics.NewDesignEvent("boss:killed:boss1");
             };
         }
 
@@ -122,6 +124,8 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 1 spawned!");
+        GooglePlayManager.Instance?.RecordReachFirstBoss();
+        GameAnalytics.NewDesignEvent("boss:spawned:level1");
     }
 
     private void SpawnBoss2()
@@ -168,6 +172,8 @@ public class BossSpawner : MonoBehaviour
 
                 //Load next level
                 StartCoroutine(LoadNextSceneAfterDelay("Level3", 3f));
+
+                GameAnalytics.NewDesignEvent("boss:killed:boss2");
             };
         }
 
@@ -176,6 +182,8 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 2 spawned!");
+        GooglePlayManager.Instance?.RecordReachSecondBoss();
+        GameAnalytics.NewDesignEvent("boss:spawned:level2");
     }
 
     private void SpawnBoss3()
@@ -222,6 +230,10 @@ public class BossSpawner : MonoBehaviour
 
                 //Load win screen
                 StartCoroutine(LoadNextSceneAfterDelay("WinScreen", 3f));
+
+                GameManager.Instance?.GameOver();
+                GameAnalytics.NewDesignEvent("boss:killed:boss3");
+                GooglePlayManager.Instance?.RecordGameCompleted();
             };
         }
 
@@ -230,6 +242,8 @@ public class BossSpawner : MonoBehaviour
             enemySpawner.StopSpawning();
 
         Debug.Log("Boss 3 spawned!");
+        GooglePlayManager.Instance?.RecordReachThirdBoss();
+        GameAnalytics.NewDesignEvent("boss:spawned:level3");
     }
 
     private IEnumerator LoadNextSceneAfterDelay(string sceneName, float delay)
